@@ -88,8 +88,8 @@ class BaseRunner(ABC):
             "BerkeleyHumanoidJoystickFlatTerrain"
         )  # TODO
         self.ppo_training_params = dict(self.ppo_params)
-        # self.ppo_training_params["num_timesteps"] = 150000000 * 20
-        
+        # default learning rate (can be overridden by HP_LEARNING_RATE env var)
+        self.ppo_training_params["learning_rate"] = 1e-4  # 0.0001
 
         if "network_factory" in self.ppo_params:
             network_factory = functools.partial(
@@ -99,6 +99,22 @@ class BaseRunner(ABC):
         else:
             network_factory = ppo_networks.make_ppo_networks
         self.ppo_training_params["num_timesteps"] = self.num_timesteps
+        # Allow simple hyperparameter overrides via environment variables.
+        # Used by the hyperparameter search script.
+        lr_env = os.getenv("HP_LEARNING_RATE")
+        if lr_env is not None:
+            try:
+                self.ppo_training_params["learning_rate"] = float(lr_env)
+            except Exception:
+                pass
+
+        num_ts_env = os.getenv("HP_NUM_TIMESTEPS")
+        if num_ts_env is not None:
+            try:
+                self.ppo_training_params["num_timesteps"] = int(num_ts_env)
+            except Exception:
+                pass
+
         print(f"PPO params: {self.ppo_training_params}")
 
         train_fn = functools.partial(

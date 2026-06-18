@@ -16,6 +16,7 @@ dependencies = [
     "pygame>=2.6.1",
     "tensorflow>=2.18.0",
     "tf2onnx>=1.16.1",
+    "setuptools<81"
 ]
 [build-system]
 requires = ["setuptools"]
