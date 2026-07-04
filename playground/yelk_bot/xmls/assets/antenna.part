@@ -1,0 +1,13 @@
+{
+    "configuration": "default",
+    "documentId": "885b1fc4f285d394d495a121",
+    "documentMicroversion": "cd15ba28a4f08c7bb6208433",
+    "elementId": "6e05b77bbe3305ab04d70aaa",
+    "fullConfiguration": "default",
+    "id": "MmXLbiyIJZ1T9tiX3",
+    "isStandardContent": false,
+    "name": "antenna <1>",
+    "partId": "RGPD",
+    "suppressed": false,
+    "type": "Part"
+}

@@ -19,7 +19,7 @@ You'll also have to set `USE_IMITATION_REWARD=True` in it's `joystick.py` file
 Run: 
 
 ```bash
-uv run playground/<robot>/runner.py 
+uv run playground/open_duck_mini_v2/runner.py
 ```
 
 ## Tensorboard
@@ -27,6 +27,7 @@ uv run playground/<robot>/runner.py
 ```bash
 uv run tensorboard --logdir=<yourlogdir>
 ```
+uv run tensorboard --logdir=checkpoints
 
 # Inference 
 
@@ -36,6 +37,10 @@ Infer mujoco
 
 ```bash
 uv run playground/open_duck_mini_v2/mujoco_infer.py -o <path_to_.onnx>
+
+uv run playground/open_duck_mini_v2/mujoco_infer.py -o ONNX.onnx
+
+uv run playground/yelk_bot/mujoco_infer.py -o ONNX.onnx
 ```
 
 # Documentation
@@ -94,5 +99,6 @@ Inspired from https://github.com/kscalelabs/mujoco_playground
 ## Current win
 
 ```bash
-uv run playground/open_duck_mini_v2/runner.py --task flat_terrain_backlash --num_timesteps 300000000
+uv run playground/open_duck_mini_v2/runner.py --task flat_terrain_backlash --num_timesteps 600000000
+uv run playground/yelk_bot/runner.py --task flat_terrain_backlash --num_timesteps 600000000
 ```

@@ -48,9 +48,15 @@ def trainable(config):
             orig_cb(num_steps, metrics)
         except Exception:
             pass
+        # Sanitize metric keys for Tune (no slashes or spaces allowed as kwargs)
         flat = {k: float(v) for k, v in metrics.items()}
-        flat.update({"steps": int(num_steps)})
-        tune.report(**flat)
+        flat["steps"] = int(num_steps)
+        sanitized = {str(k).replace("/", "_").replace(" ", "_"): v for k, v in flat.items()}
+        try:
+            tune.report(**sanitized)
+        except TypeError:
+            # As a fallback, pass a single dict payload
+            tune.report(metrics=sanitized)
 
     runner.progress_callback = cb
 
